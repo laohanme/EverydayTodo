@@ -16,12 +16,14 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
 
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         configure()
     }
+    
     private func configure() {
-        
         scrollView.frame = holderView.bounds
         holderView.addSubview(scrollView)
         //set up scrollView
@@ -62,7 +64,7 @@ class WelcomeViewController: UIViewController {
             
            // button.setTitleColor(.white, for: .normal)
            // button.backgroundColor = .black
-          //  button.setTitle("Continue", for: .normal)
+           // button.setTitle("Continue", for: .normal)
             let largeConfig = UIImage.SymbolConfiguration(pointSize: 50)
             let largeImage = UIImage(systemName: "chevron.right.circle.fill", withConfiguration: largeConfig)
             button.setImage(largeImage, for: .normal)
@@ -82,6 +84,7 @@ class WelcomeViewController: UIViewController {
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
     }
+    
     @objc func didTapButton(_ button: UIButton) {
         guard button.tag < 4 else {
             //dissmiss

@@ -18,6 +18,7 @@ class TodoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         todoListViewModel.loadTasks()
         profileViewModel.fetchProfile()
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout{
@@ -27,6 +28,7 @@ class TodoViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
         if Core.shared.isNewUser() {
             // show onboarding
             let sb = UIStoryboard(name: "Welcome", bundle: nil)
@@ -38,6 +40,7 @@ class TodoViewController: UIViewController {
 }
 
 extension TodoViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return todoListViewModel.todos.count + 1 // add + 1 for AddCell
     }
@@ -98,6 +101,7 @@ extension TodoViewController: UICollectionViewDataSource {
         }
         return UICollectionReusableView()
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
   
         if indexPath.row < todoListViewModel.todos.count {
@@ -112,6 +116,7 @@ extension TodoViewController: UICollectionViewDataSource {
 }
 
 extension TodoViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //TODO: 가로모드와 세로모드의 셀 사이징이 다름. 
         let margin: CGFloat = 10
@@ -123,6 +128,7 @@ extension TodoViewController: UICollectionViewDelegateFlowLayout {
 }
 //MARK: action events
 extension TodoViewController {
+    
     @objc func showModal(index: NSNumber?){
         let vc = self.storyboard?.instantiateViewController(identifier: "ModalViewController") as! ModalViewController
         vc.modalTransitionStyle = .crossDissolve
@@ -134,19 +140,17 @@ extension TodoViewController {
     }
     
     func fetchTasks(){
-            todoListViewModel.loadTasks()
-            profileViewModel.fetchProfile()
-            self.collectionView.reloadData()
+        todoListViewModel.loadTasks()
+        profileViewModel.fetchProfile()
+        self.collectionView.reloadData()
     }
     
-    
-
     @objc func changeProfile(){
         guard let vc = (self.storyboard?.instantiateViewController(identifier: "EditProfileViewController") as? EditProfileViewController) else { return }
         vc.modalTransitionStyle = .crossDissolve
         present(vc, animated: true, completion: nil)
-
     }
+    
     func setupAnimation(){
         animationView.frame = view.bounds
         animationView.backgroundColor = .clear
@@ -159,11 +163,12 @@ extension TodoViewController {
         animationView.play()
     }
     
-
 }
+
 //MARK: Context Menu
 //TODO: try to make it somewhere else to reuse it just in case.
 extension TodoViewController: UICollectionViewDelegate{
+    
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         configureContextMenu(index: indexPath.row)
     }
@@ -184,7 +189,7 @@ extension TodoViewController: UICollectionViewDelegate{
                     self.fetchTasks()
                 }
                 
-                return UIMenu(title: "Options", image: nil, identifier: nil, options: UIMenu.Options.displayInline, children: [edit,delete])
+                return UIMenu(title: "Options", image: nil, identifier: nil, options: .displayInline, children: [edit, delete])
             }
             return context
         }

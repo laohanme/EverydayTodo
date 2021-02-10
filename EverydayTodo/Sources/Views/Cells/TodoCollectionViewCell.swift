@@ -17,24 +17,24 @@ class TodoCollectionViewCell: UICollectionViewCell {
     
     let profileViewModel = ProfileViewModel()
 
-     var todoListData: Todo! {
-         didSet {
+    var todoListData: Todo! {
+        didSet {
             profileViewModel.fetchColor()
-             if todoListData.isDone == true {
+            if todoListData.isDone == true {
                 self.backgroundColor = profileViewModel.color.rgb
-                 checkMark.isHidden = false
-             }
-             else{
+                checkMark.isHidden = false
+            }
+            else{
                 self.backgroundColor = profileViewModel.color.unselected
                 checkMark.isHidden = true
-             }
-
-             detail.text = todoListData.detail
-             day.text = todoListData.date?.getDay()
-             date.text = todoListData.date?.getDate()
-             month.text = todoListData.date?.getMonthString()
-         }
-     }
+            }
+            
+            detail.text = todoListData.detail
+            day.text = todoListData.date?.getDay()
+            date.text = todoListData.date?.getDate()
+            month.text = todoListData.date?.getMonthString()
+        }
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()

@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileViewModel {
-    enum CurrentColor: String, CaseIterable{
+    enum CurrentColor: String, CaseIterable {
         case marigold
         case coraulean
         case greenAsh
@@ -39,17 +39,21 @@ class ProfileViewModel {
     var profile : [Profile] {
         return manager.profile
     }
-    func setUpProfile(nickName: String, profileImg: Data){
+    
+    func setUpProfile(nickName: String, profileImg: Data) {
         manager.setUpProfile(nickName: nickName, profileImg: profileImg, themeColor: color.rawValue)
     }
-    func fetchProfile(){
+    
+    func fetchProfile() {
         manager.fetchProfile()
         let color = CurrentColor(rawValue: "\(manager.getThemeColor())")
         updateColor(color ?? .marigold)
     }
-    func updateColor(_ type: CurrentColor){
+    
+    func updateColor(_ type: CurrentColor) {
         self.color = type
     }
+    
     func fetchColor() {
         let color = CurrentColor(rawValue: "\(manager.getThemeColor())")
         updateColor(color ?? .marigold)

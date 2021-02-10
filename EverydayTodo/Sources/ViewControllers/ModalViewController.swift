@@ -14,39 +14,36 @@ class ModalViewController: UIViewController {
     @IBOutlet weak var modalTF: UITextField!
     @IBOutlet weak var alertButton: UISwitch!
     @IBOutlet weak var datePicker: UIDatePicker!
+    
     var modalViewModel = TodoViewModel()
     var profileViewModel = ProfileViewModel()
     var todos: Todo?
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillHideNotification, object: nil)
         updateUI()
         view.layoutIfNeeded()
     }
-    func updateUI(){
+    
+    func updateUI() {
         profileViewModel.fetchColor()
         submitButton.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
-        if modalViewModel.fetchMode() == .edit {
-            submitButton.setTitle("SAVE", for: .normal)
-        }
-        else {
-            submitButton.setTitle("ADD", for: .normal)
-        }
+        submitButton.setTitle(modalViewModel.fetchMode() == .edit ? "Edit": "ADD", for: .normal)
         submitButton.backgroundColor = profileViewModel.color.rgb
         modalTF?.text = todos?.detail
         datePicker.date = todos?.date ?? Date()
         alertButton.onTintColor = profileViewModel.color.rgb
         guard let statusOfAlarm = todos?.isAlarmOn else { return }
         alertButton.isOn = statusOfAlarm
-     
     }
 }
 
 //MARK: ACTIONS
-extension ModalViewController{
+extension ModalViewController {
+    
     @IBAction func closeButtonTapped(_ sender: Any) {
         //[TODO: is there any nice way to put it? ]
         modalViewModel.updateMode(.write)
@@ -97,10 +94,11 @@ extension ModalViewController{
         }
         //print("\(keyboardFrame)")
     }
+    
     func scheduleLocalNotification(){
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            
             if settings.authorizationStatus == UNAuthorizationStatus.authorized{
-                
                 DispatchQueue.main.async {
                     let content = UNMutableNotificationContent()
                     content.title = "Complete your todo"
@@ -114,9 +112,9 @@ extension ModalViewController{
                     
                     let trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo, repeats: false)
                     
-                    //create the request
-                   // let uuidString = UUID().uuidString
-                    //알림 요청이 여러개 일때, 알림들을 구분할수 있게 해주는 식별자.
+                    // create the request
+                    // let uuidString = UUID().uuidString
+                    // 알림 요청이 여러개 일때, 알림들을 구분할수 있게 해주는 식별자.
                     let request = UNNotificationRequest(identifier: self.modalTF.text ?? "0", content: content, trigger: trigger)
                     
                     // Schedule the request with the system
@@ -128,11 +126,10 @@ extension ModalViewController{
                     }
                 }
             }
-            else{
+            else {
                 print("user denied")
             }
         }
-
     }
 }
 
