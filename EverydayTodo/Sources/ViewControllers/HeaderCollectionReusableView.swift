@@ -16,6 +16,7 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var progressView: ProgressView!
     @IBOutlet weak var percentage: UILabel!
     @IBOutlet weak var changeProfileButton: UIButton!
+    @IBOutlet weak var switchButton: UIButton!
     
     var uiViewController: UIViewController!
     

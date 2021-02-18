@@ -181,18 +181,25 @@
                                             </state>
                                         </button>
                                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="1" translatesAutoresizingMaskIntoConstraints="NO" id="IzX-h9-TU6" customClass="ProgressView" customModule="EverydayTodo" customModuleProvider="target">
-                                            <rect key="frame" x="42" y="210" width="330" height="10"/>
+                                            <rect key="frame" x="42" y="190" width="330" height="10"/>
                                             <color key="tintColor" red="0.95246714349999995" green="0.68640422820000002" blue="0.1370655298" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="10" id="dLa-yQ-hXX"/>
                                             </constraints>
                                         </progressView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7H-Ud-J0f">
+                                            <rect key="frame" x="282" y="212" width="114" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <state key="normal" title="Hide Completed"/>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="IzX-h9-TU6" firstAttribute="centerX" secondItem="WIb-oZ-Mte" secondAttribute="centerX" id="4VD-wD-Xgw"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="T7H-Ud-J0f" secondAttribute="trailing" constant="10" id="696-ER-Wh0"/>
+                                        <constraint firstItem="T7H-Ud-J0f" firstAttribute="bottom" secondItem="WIb-oZ-Mte" secondAttribute="bottomMargin" id="AIn-eK-Log"/>
                                         <constraint firstItem="enJ-tk-tlc" firstAttribute="leading" secondItem="WIb-oZ-Mte" secondAttribute="leading" constant="10" id="T8u-JX-q6V"/>
-                                        <constraint firstAttribute="bottom" secondItem="IzX-h9-TU6" secondAttribute="bottom" constant="30" id="TLm-0s-7BF"/>
+                                        <constraint firstAttribute="bottom" secondItem="IzX-h9-TU6" secondAttribute="bottom" constant="50" id="TLm-0s-7BF"/>
                                         <constraint firstAttribute="trailing" secondItem="IzX-h9-TU6" secondAttribute="trailing" constant="42" id="Xr3-EX-FU0"/>
                                         <constraint firstAttribute="trailing" secondItem="enJ-tk-tlc" secondAttribute="trailing" constant="87" id="dYV-tz-Tc4"/>
                                         <constraint firstItem="ML2-5V-94K" firstAttribute="centerX" secondItem="WIb-oZ-Mte" secondAttribute="centerX" id="hXi-BY-YIF"/>
@@ -209,6 +216,7 @@
                                         <outlet property="percentage" destination="ML2-5V-94K" id="66z-7A-ukt"/>
                                         <outlet property="profileImage" destination="DoL-dE-uBu" id="tq3-JV-S44"/>
                                         <outlet property="progressView" destination="IzX-h9-TU6" id="jry-f9-dyB"/>
+                                        <outlet property="switchButton" destination="T7H-Ud-J0f" id="jB8-5F-Wv7"/>
                                     </connections>
                                 </collectionReusableView>
                                 <connections>

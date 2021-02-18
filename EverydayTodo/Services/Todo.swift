@@ -14,7 +14,7 @@ class TodoManager {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
-    func addTodo(detail: String, date: Date, id: Int, isDone: Bool, isAlarmOn: Bool){
+    func addTodo(detail: String, date: Date, id: Int, isDone: Bool, isAlarmOn: Bool) {
         let newTodo = Todo(context: self.context)
         newTodo.detail = detail
         newTodo.date = date
@@ -24,18 +24,18 @@ class TodoManager {
         saveTodo()
     }
     
-    func deleteTodo(_ todo: Todo){
+    func deleteTodo(_ todo: Todo) {
         self.context.delete(todo)
         saveTodo()
     }
     
-    func updateTodo(_ todo: Todo){
+    func updateTodo(_ todo: Todo) {
         saveTodo()
     }
 
     
-    func saveTodo(){
-        do{
+    func saveTodo() {
+        do {
             try self.context.save()
             print("[Saved] successfully saved data!")
         }
@@ -44,9 +44,18 @@ class TodoManager {
         }
     }
     
-    func retrieveTodo(){
-        do{
+    func retrieveTodo() {
+        do {
             self.todos = try context.fetch(Todo.fetchRequest())
+        }
+        catch{
+            print(error.localizedDescription)
+        }
+    }
+    
+    func retrieveUndoneTodo() {
+        do {
+            self.todos = try context.fetch(Todo.fetchUndoneRequest())
         }
         catch{
             print(error.localizedDescription)

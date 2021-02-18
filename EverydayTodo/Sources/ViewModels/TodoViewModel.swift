@@ -47,6 +47,10 @@ class TodoViewModel{
         manager.retrieveTodo()
     }
     
+    func loadUndoneTasks() {
+        manager.retrieveUndoneTodo()
+    }
+    
     func updateMode(_ mode: CurrentMode) {
         self.mode = mode
     }

@@ -12,10 +12,13 @@ import Lottie
 class TodoViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    
     let todoListViewModel = TodoViewModel()
     let profileViewModel = ProfileViewModel()
     let animationView = AnimationView()
 
+    var isHideDone: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,7 +92,8 @@ extension TodoViewController: UICollectionViewDataSource {
             headerView.percentage.text = "\(percentage)%"
             headerView.addTaskButton.addTarget(self, action: #selector(showModal), for: .touchUpInside)
             headerView.changeProfileButton.addTarget(self, action: #selector(changeProfile), for: .touchUpInside)
-        
+            headerView.switchButton.addTarget(self, action: #selector(showorhide), for: .touchUpInside)
+            headerView.switchButton.setTitle(isHideDone ? "Show Completed": "Hide Completed", for: .normal)
             //[question: How to implement the code below?]
 //            headerView.addTaskButton = UIButton(type: .system, primaryAction: UIAction(handler: { (_) in
 //                self.showModal()
@@ -107,6 +111,9 @@ extension TodoViewController: UICollectionViewDataSource {
         if indexPath.row < todoListViewModel.todos.count {
             todoListViewModel.todos[indexPath.row].isDone = !todoListViewModel.todos[indexPath.row].isDone
             todoListViewModel.saveToday()
+            if isHideDone {
+                todoListViewModel.loadUndoneTasks()
+            }
             collectionView.reloadData()
         }
         else {
@@ -149,6 +156,18 @@ extension TodoViewController {
         guard let vc = (self.storyboard?.instantiateViewController(identifier: "EditProfileViewController") as? EditProfileViewController) else { return }
         vc.modalTransitionStyle = .crossDissolve
         present(vc, animated: true, completion: nil)
+    }
+    
+    @objc func showorhide() {
+        if !isHideDone {
+            isHideDone = true
+            todoListViewModel.loadUndoneTasks()
+        }
+        else {
+            isHideDone = false
+            todoListViewModel.loadTasks()
+        }
+        collectionView.reloadData()
     }
     
     func setupAnimation(){
